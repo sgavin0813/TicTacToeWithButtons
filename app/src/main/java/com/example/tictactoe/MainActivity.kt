@@ -68,9 +68,9 @@ class MainActivity : AppCompatActivity() {
                 winner.setText("${buttons[0].getText().toString()} is Winner:Game Over!")
                 gameOver = true
             }
-            if ((buttons[3].getText().toString()) ==(buttons[4].getText().toString())
+            if ((buttons[2].getText().toString()) ==(buttons[4].getText().toString())
                 && ((buttons[4].getText().toString())==(buttons[6].getText().toString()))) {
-                winner.setText("${buttons[3].getText().toString()} is Winner:Game Over!")
+                winner.setText("${buttons[2].getText().toString()} is Winner:Game Over!")
                 gameOver = true
             }
 
