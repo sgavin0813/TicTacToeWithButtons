@@ -8,7 +8,7 @@
     android:columnCount="3"
     android:rowCount="3"
     tools:context=".MainActivity"
-    android:layout_margin="5dp"
+    android:layout_margin="20dp"
     android:gravity ="center"
     >
     <Button
