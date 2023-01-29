@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <GridLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:columnCount="3"
+    android:rowCount="3"
+    tools:context=".MainActivity"
+    android:layout_margin="5dp"
+    android:gravity ="center"
+    >
+    <Button
+        android:layout_margin="10dp"
+        android:id="@+id/btn1"
+        android:onClick="whenClicked"
+        />
+    <Button
+        android:layout_margin="10dp"
+        android:id="@+id/btn2"
+        android:onClick="whenClicked"
+        />
+    <Button
+        android:layout_margin="10dp"
+        android:id="@+id/btn3"
+        android:onClick="whenClicked"
+        />
+    <Button
+        android:layout_margin="10dp"
+        android:onClick="whenClicked"
+        android:id="@+id/btn4"
+        />
+    <Button
+        android:layout_margin="10dp"
+        android:onClick="whenClicked"
+        android:id="@+id/btn5"
+        />
+    <Button
+        android:layout_margin="10dp"
+        android:onClick="whenClicked"
+        android:id="@+id/btn6"
+        />
+    <Button
+        android:layout_margin="10dp"
+        android:onClick="whenClicked"
+        android:id="@+id/btn7"
+        />
+    <Button
+        android:layout_margin="10dp"
+        android:onClick="whenClicked"
+        android:id="@+id/btn8"
+        />
+    <Button
+        android:layout_margin="10dp"
+        android:onClick="whenClicked"
+        android:id="@+id/btn9"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:text="No Winner Yet"
+        android:id="@+id/winner"/>
+
+</GridLayout>
+
