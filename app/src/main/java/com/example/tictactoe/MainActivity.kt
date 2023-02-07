@@ -20,18 +20,29 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         buttons = arrayOf(
             findViewById<Button>(R.id.btn1),
-            findViewById<Button>(R.id.btn2) ,
-            findViewById<Button>(R.id.btn3) ,
-            findViewById<Button>(R.id.btn4) ,
-            findViewById<Button>(R.id.btn5) ,
-            findViewById<Button>(R.id.btn6) ,
-            findViewById<Button>(R.id.btn7) ,
-            findViewById<Button>(R.id.btn8) ,
+            findViewById<Button>(R.id.btn2),
+            findViewById<Button>(R.id.btn3),
+            findViewById<Button>(R.id.btn4),
+            findViewById<Button>(R.id.btn5),
+            findViewById<Button>(R.id.btn6),
+            findViewById<Button>(R.id.btn7),
+            findViewById<Button>(R.id.btn8),
             findViewById<Button>(R.id.btn9)
         )
         winner = findViewById<TextView>(R.id.winner)
         resetButton = findViewById<Button>(R.id.reset)
+        resetButton.setOnClickListener {
+            for (i in 0 until 9) {
+                buttons[i].text = ""
+            }
+            gameOver = false
+            winner.text = "No winner yet"
+            resetButton.visibility = View.INVISIBLE
+            whoseTurn = 0
+            count = 0
+        }
     }
+
 
     fun whenClicked(viewCurrent : View) {
         //the reference of button we click is saved in current button
@@ -86,12 +97,7 @@ class MainActivity : AppCompatActivity() {
 
         }
     }
-    fun resetFunction(viewCurrent : View){
-        for (i in 0..9){
-            buttons[i].text = ""
-        }
-        winner.text = "No winner yet!"
-    }
+
 
 
 }
