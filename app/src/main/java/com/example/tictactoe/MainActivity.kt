@@ -31,18 +31,17 @@ class MainActivity : AppCompatActivity() {
         )
         winner = findViewById<TextView>(R.id.winner)
         resetButton = findViewById<Button>(R.id.reset)
-        resetButton.setOnClickListener {
-            for (i in 0 until 9) {
-                buttons[i].text = ""
-            }
-            gameOver = false
-            winner.text = "No winner yet"
-            resetButton.visibility = View.INVISIBLE
-            whoseTurn = 0
-            count = 0
-        }
     }
-
+    fun resetFunction(viewCurrent : View){
+        for (i in 0 until 9) {
+            buttons[i].text = ""
+        }
+        gameOver = false
+        winner.text = "No winner yet"
+        (viewCurrent as Button).visibility = View.INVISIBLE
+        whoseTurn = 0
+        count = 0
+    }
 
     fun whenClicked(viewCurrent : View) {
         //the reference of button we click is saved in current button
