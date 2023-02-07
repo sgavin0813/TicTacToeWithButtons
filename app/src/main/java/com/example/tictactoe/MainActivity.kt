@@ -61,9 +61,12 @@ class MainActivity : AppCompatActivity() {
             whoseTurn--
             }
         }
-        //we can have winner at atleast 5th term
+        //we can have winner at at least 5th term
         if(count in 5..9){
-            for (i in 0..5 step 2){
+            if(count == 9){
+                resetButton.visibility = View.VISIBLE
+            }
+            for (i in 0..8 step 3){
                 if ((buttons[i].text.toString()) ==(buttons[i+1].text.toString())
                     && ((buttons[i+1].text.toString())==(buttons[i+2].text.toString()))) {
                     winner.text = "${buttons[i].text} is Winner"
@@ -72,6 +75,7 @@ class MainActivity : AppCompatActivity() {
                     break
                 }
             }
+            
             for (i in 0..2 step 1){
                 if ((buttons[i].text.toString()) ==(buttons[i+3].text.toString())
                     && ((buttons[i+3].text.toString())==(buttons[i+6].text.toString()))) {
@@ -95,6 +99,7 @@ class MainActivity : AppCompatActivity() {
             }
 
         }
+
     }
 
 
