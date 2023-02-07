@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">TicTacToe</string>
     <string name="no_winner_yet">No Winner yet</string>
+    <string name="reset">Reset</string>
 </resources>

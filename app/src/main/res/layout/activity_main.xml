@@ -1,65 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <GridLayout
+   <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:columnCount="3"
-    android:rowCount="3"
-    tools:context=".MainActivity"
-    android:layout_margin="20dp"
-    android:gravity ="center"
-    >
-    <Button
-        android:layout_margin="10dp"
-        android:id="@+id/btn1"
-        android:onClick="whenClicked"
-        />
-    <Button
-        android:layout_margin="10dp"
-        android:id="@+id/btn2"
-        android:onClick="whenClicked"
-        />
-    <Button
-        android:layout_margin="10dp"
-        android:id="@+id/btn3"
-        android:onClick="whenClicked"
-        />
-    <Button
-        android:layout_margin="10dp"
-        android:onClick="whenClicked"
-        android:id="@+id/btn4"
-        />
-    <Button
-        android:layout_margin="10dp"
-        android:onClick="whenClicked"
-        android:id="@+id/btn5"
-        />
-    <Button
-        android:layout_margin="10dp"
-        android:onClick="whenClicked"
-        android:id="@+id/btn6"
-        />
-    <Button
-        android:layout_margin="10dp"
-        android:onClick="whenClicked"
-        android:id="@+id/btn7"
-        />
-    <Button
-        android:layout_margin="10dp"
-        android:onClick="whenClicked"
-        android:id="@+id/btn8"
-        />
-    <Button
-        android:layout_margin="10dp"
-        android:onClick="whenClicked"
-        android:id="@+id/btn9"
-        />
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_gravity="center_horizontal"
+    android:gravity="center_horizontal">
+
+    <GridLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:columnCount="3"
+        android:gravity="center"
+        android:rowCount="3"
+        tools:context=".MainActivity">
+
+        <Button
+            android:id="@+id/btn1"
+            android:layout_margin="10dp"
+            android:onClick="whenClicked" />
+
+        <Button
+            android:id="@+id/btn2"
+            android:layout_margin="10dp"
+            android:onClick="whenClicked" />
+
+        <Button
+            android:id="@+id/btn3"
+            android:layout_margin="10dp"
+            android:onClick="whenClicked" />
+
+        <Button
+            android:id="@+id/btn4"
+            android:layout_margin="10dp"
+            android:onClick="whenClicked" />
+
+        <Button
+            android:id="@+id/btn5"
+            android:layout_margin="10dp"
+            android:onClick="whenClicked" />
+
+        <Button
+            android:id="@+id/btn6"
+            android:layout_margin="10dp"
+            android:onClick="whenClicked" />
+
+        <Button
+            android:id="@+id/btn7"
+            android:layout_margin="10dp"
+            android:onClick="whenClicked" />
+
+        <Button
+            android:id="@+id/btn8"
+            android:layout_margin="10dp"
+            android:onClick="whenClicked" />
+
+        <Button
+            android:id="@+id/btn9"
+            android:layout_margin="10dp"
+            android:onClick="whenClicked" />
+    </GridLayout>
     <TextView
         android:layout_width="wrap_content"
-        android:text="No Winner Yet"
-        android:id="@+id/winner"/>
-
-</GridLayout>
-
+        android:layout_height="wrap_content"
+        android:id="@+id/winner"
+        android:text="@string/no_winner_yet"
+        />
+    <Button
+        android:id="@+id/reset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/reset"
+        android:onClick="resetFunction"
+        android:visibility="invisible"/>
+</LinearLayout>

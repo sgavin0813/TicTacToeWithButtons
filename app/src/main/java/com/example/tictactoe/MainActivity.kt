@@ -8,11 +8,12 @@ import android.widget.TextView
 
 
 class MainActivity : AppCompatActivity() {
-    protected var whoseTurn:Int = 0
-    protected var count:Int = 0
-    protected var gameOver:Boolean = false
+    private var whoseTurn:Int = 0
+    private var count:Int = 0
+    private var gameOver:Boolean = false
     var buttons = arrayOf<Button>()
-    lateinit var winner: TextView
+    private lateinit var winner: TextView
+    private lateinit var resetButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +30,7 @@ class MainActivity : AppCompatActivity() {
             findViewById<Button>(R.id.btn9)
         )
         winner = findViewById<TextView>(R.id.winner)
+        resetButton = findViewById<Button>(R.id.reset)
     }
 
     fun whenClicked(viewCurrent : View) {
@@ -36,7 +38,7 @@ class MainActivity : AppCompatActivity() {
         var currentButton = viewCurrent
         if (whoseTurn==0 && !gameOver){
             if ((currentButton as Button).text == ""){
-            (currentButton as Button).text = "X"
+            currentButton.text = "X"
             //count is same as number of boxes filled
             whoseTurn++
             count ++
@@ -44,7 +46,7 @@ class MainActivity : AppCompatActivity() {
         }
         else if(whoseTurn==1){
             if ((currentButton as Button).text == ""){
-            (currentButton as Button).text = "O"
+            currentButton.text = "O"
             count++
             whoseTurn--
             }
@@ -52,36 +54,43 @@ class MainActivity : AppCompatActivity() {
         //we can have winner at atleast 5th term
         if(count in 5..9){
             for (i in 0..5 step 2){
-                if ((buttons[i].getText().toString()) ==(buttons[i+1].getText().toString())
-                    && ((buttons[i+1].getText().toString())==(buttons[i+2].getText().toString()))) {
-                    winner.setText("${buttons[i].getText().toString()} is Winner")
+                if ((buttons[i].text.toString()) ==(buttons[i+1].text.toString())
+                    && ((buttons[i+1].text.toString())==(buttons[i+2].text.toString()))) {
+                    winner.text = "${buttons[i].text} is Winner"
                     gameOver = true
+                    resetButton.visibility = View.VISIBLE
                     break
                 }
             }
             for (i in 0..2 step 1){
-                if ((buttons[i].getText().toString()) ==(buttons[i+3].getText().toString())
-                    && ((buttons[i+3].getText().toString())==(buttons[i+6].getText().toString()))) {
-                    winner.setText("${buttons[i].getText().toString()} is Winner")
+                if ((buttons[i].text.toString()) ==(buttons[i+3].text.toString())
+                    && ((buttons[i+3].text.toString())==(buttons[i+6].text.toString()))) {
+                    winner.text = "${buttons[i].text} is Winner"
                     gameOver = true
+                    resetButton.visibility = View.VISIBLE
                     break
                 }
             }
-            if ((buttons[0].getText().toString()) ==(buttons[4].getText().toString())
-                && ((buttons[4].getText().toString())==(buttons[8].getText().toString()))) {
-                winner.setText("${buttons[0].getText().toString()} is Winner")
+            if ((buttons[0].text.toString()) ==(buttons[4].text.toString())
+                && ((buttons[4].text.toString())==(buttons[8].text.toString()))) {
+                winner.text = "${buttons[0].text} is Winner"
+                resetButton.visibility = View.VISIBLE
                 gameOver = true
             }
-            if ((buttons[2].getText().toString()) ==(buttons[4].getText().toString())
-                && ((buttons[4].getText().toString())==(buttons[6].getText().toString()))) {
-                winner.setText("${buttons[2].getText().toString()} is Winner")
+            if ((buttons[2].text.toString()) ==(buttons[4].text.toString())
+                && ((buttons[4].text.toString())==(buttons[6].text.toString()))) {
+                winner.text = "${buttons[2].text} is Winner"
+                resetButton.visibility = View.VISIBLE
                 gameOver = true
             }
-
 
         }
-
-
+    }
+    fun resetFunction(viewCurrent : View){
+        for (i in 0..9){
+            buttons[i].text = ""
+        }
+        winner.text = "No winner yet!"
     }
 
 
