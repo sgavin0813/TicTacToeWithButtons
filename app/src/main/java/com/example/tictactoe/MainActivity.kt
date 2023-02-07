@@ -35,22 +35,26 @@ class MainActivity : AppCompatActivity() {
         //the reference of button we click is saved in current button
         var currentButton = viewCurrent
         if (whoseTurn==0 && !gameOver){
+            if ((currentButton as Button).text == ""){
             (currentButton as Button).text = "X"
             //count is same as number of boxes filled
             whoseTurn++
             count ++
+            }
         }
         else if(whoseTurn==1){
+            if ((currentButton as Button).text == ""){
             (currentButton as Button).text = "O"
             count++
             whoseTurn--
+            }
         }
         //we can have winner at atleast 5th term
         if(count in 5..9){
             for (i in 0..5 step 2){
                 if ((buttons[i].getText().toString()) ==(buttons[i+1].getText().toString())
                     && ((buttons[i+1].getText().toString())==(buttons[i+2].getText().toString()))) {
-                    winner.setText("${buttons[i].getText().toString()} is Winner: Game Over!")
+                    winner.setText("${buttons[i].getText().toString()} is Winner")
                     gameOver = true
                     break
                 }
@@ -58,19 +62,19 @@ class MainActivity : AppCompatActivity() {
             for (i in 0..2 step 1){
                 if ((buttons[i].getText().toString()) ==(buttons[i+3].getText().toString())
                     && ((buttons[i+3].getText().toString())==(buttons[i+6].getText().toString()))) {
-                    winner.setText("${buttons[i].getText().toString()} is Winner:Game Over!")
+                    winner.setText("${buttons[i].getText().toString()} is Winner")
                     gameOver = true
                     break
                 }
             }
             if ((buttons[0].getText().toString()) ==(buttons[4].getText().toString())
                 && ((buttons[4].getText().toString())==(buttons[8].getText().toString()))) {
-                winner.setText("${buttons[0].getText().toString()} is Winner:Game Over!")
+                winner.setText("${buttons[0].getText().toString()} is Winner")
                 gameOver = true
             }
             if ((buttons[2].getText().toString()) ==(buttons[4].getText().toString())
                 && ((buttons[4].getText().toString())==(buttons[6].getText().toString()))) {
-                winner.setText("${buttons[2].getText().toString()} is Winner:Game Over!")
+                winner.setText("${buttons[2].getText().toString()} is Winner")
                 gameOver = true
             }
 
