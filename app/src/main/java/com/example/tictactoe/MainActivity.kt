@@ -1,10 +1,12 @@
 package com.example.tictactoe
 
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.view.View
 import android.widget.TextView
+import kotlin.system.exitProcess
 
 
 class MainActivity : AppCompatActivity() {
@@ -14,6 +16,7 @@ class MainActivity : AppCompatActivity() {
     var buttons = arrayOf<Button>()
     private lateinit var winner: TextView
     private lateinit var resetButton: Button
+    private var player:String ="X"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,65 +46,72 @@ class MainActivity : AppCompatActivity() {
         count = 0
     }
 
+    @SuppressLint("SetTextI18n")
     fun whenClicked(viewCurrent : View) {
         //the reference of button we click is saved in current button
         var currentButton = viewCurrent
-        if (whoseTurn==0 && !gameOver){
-            if ((currentButton as Button).text == ""){
-            currentButton.text = "X"
-            //count is same as number of boxes filled
-            whoseTurn++
-            count ++
-            }
+        //exit if game over
+        if(gameOver){
+            return
         }
-        else if(whoseTurn==1){
-            if ((currentButton as Button).text == ""){
-            currentButton.text = "O"
-            count++
-            whoseTurn--
+        if (whoseTurn == 0) {
+            if ((currentButton as Button).text == "") {
+                player = "X"
+                currentButton.text = player
+                //count is same as number of boxes filled
+                whoseTurn++
+                count++
+            }
+        } else if (whoseTurn == 1) {
+            if ((currentButton as Button).text == "") {
+                player = "O"
+                currentButton.text = player
+                count++
+                whoseTurn--
             }
         }
         //we can have winner at at least 5th term
-        if(count in 5..9){
-            if(count == 9){
+        if (count in 5..9) {
+            if (count == 9 ) {
                 resetButton.visibility = View.VISIBLE
             }
-            for (i in 0..8 step 3){
-                if ((buttons[i].text.toString()) ==(buttons[i+1].text.toString())
-                    && ((buttons[i+1].text.toString())==(buttons[i+2].text.toString()))) {
-                    winner.text = "${buttons[i].text} is Winner"
+
+            //for row
+
+            for (i in 0..8 step 3) {
+                if ((buttons[i].text.toString() == player) && (buttons[i + 1].text.toString() == player) && (buttons[i + 2].text.toString() == player)) {
+                    winner.text = "$player is Winner"
                     gameOver = true
                     resetButton.visibility = View.VISIBLE
                     break
                 }
             }
-            
-            for (i in 0..2 step 1){
-                if ((buttons[i].text.toString()) ==(buttons[i+3].text.toString())
-                    && ((buttons[i+3].text.toString())==(buttons[i+6].text.toString()))) {
-                    winner.text = "${buttons[i].text} is Winner"
+            //for column
+            for (i in 0..2) {
+                if ((buttons[i].text.toString() == player) && (buttons[i + 3].text.toString() == player) && (buttons[i + 6].text.toString() == player)) {
+                    winner.text = "$player is Winner"
                     gameOver = true
                     resetButton.visibility = View.VISIBLE
                     break
                 }
             }
-            if ((buttons[0].text.toString()) ==(buttons[4].text.toString())
-                && ((buttons[4].text.toString())==(buttons[8].text.toString()))) {
+
+            if ((buttons[0].text.toString()) == (buttons[4].text.toString())
+                && ((buttons[4].text.toString()) == (buttons[8].text.toString()))
+            ) {
                 winner.text = "${buttons[0].text} is Winner"
                 resetButton.visibility = View.VISIBLE
                 gameOver = true
             }
-            if ((buttons[2].text.toString()) ==(buttons[4].text.toString())
-                && ((buttons[4].text.toString())==(buttons[6].text.toString()))) {
+            if ((buttons[2].text.toString()) == (buttons[4].text.toString())
+                && ((buttons[4].text.toString()) == (buttons[6].text.toString()))
+            ) {
                 winner.text = "${buttons[2].text} is Winner"
                 resetButton.visibility = View.VISIBLE
                 gameOver = true
             }
 
         }
-
     }
-
-
-
 }
+
