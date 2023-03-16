@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.view.View
 import android.widget.TextView
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.system.exitProcess
 
 
@@ -34,14 +35,15 @@ class MainActivity : AppCompatActivity() {
         )
         winner = findViewById<TextView>(R.id.winner)
         resetButton = findViewById<Button>(R.id.reset)
-    }
+
+
     fun resetFunction(viewCurrent : View){
         for (i in 0 until 9) {
             buttons[i].text = ""
         }
         gameOver = false
         winner.text = "No winner yet"
-        (viewCurrent as Button).visibility = View.INVISIBLE
+        (viewCurrent as Button) .visibility = View.INVISIBLE
         whoseTurn = 0
         count = 0
     }
@@ -49,7 +51,7 @@ class MainActivity : AppCompatActivity() {
     @SuppressLint("SetTextI18n")
     fun whenClicked(viewCurrent : View) {
         //the reference of button we click is saved in current button
-        var currentButton = viewCurrent
+        val currentButton = viewCurrent
         //exit if game over
         if(gameOver){
             return
@@ -111,6 +113,11 @@ class MainActivity : AppCompatActivity() {
                 gameOver = true
             }
 
+        }
+    }
+        
+            }
+        }
         }
     }
 }

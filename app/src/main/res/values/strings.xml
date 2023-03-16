@@ -2,4 +2,8 @@
     <string name="app_name">TicTacToe</string>
     <string name="no_winner_yet">No Winner yet</string>
     <string name="reset">Reset</string>
+    <string name="food_list">FOOD</string>
+    <string name="track_calories">Calories</string>
+    <string name="history">History</string>
+    <string name="home">Home</string>
 </resources>
