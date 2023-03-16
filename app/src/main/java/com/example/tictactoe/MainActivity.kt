@@ -1,13 +1,16 @@
 package com.example.tictactoe
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlin.system.exitProcess
+
 
 
 class MainActivity : AppCompatActivity() {
@@ -18,7 +21,11 @@ class MainActivity : AppCompatActivity() {
     private lateinit var winner: TextView
     private lateinit var resetButton: Button
     private var player:String ="X"
-
+    private var savedStringForX:String = ""
+    private var savedStringForY:String = ""
+    private lateinit var arrayForX:IntArray
+   /* private val sharedPreferences = getSharedPreferences("mySharedPreferences" , Context.MODE_PRIVATE )
+*/
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -35,21 +42,18 @@ class MainActivity : AppCompatActivity() {
         )
         winner = findViewById<TextView>(R.id.winner)
         resetButton = findViewById<Button>(R.id.reset)
+        navBar.setNavigationItemSelectedListener{
+            when(it.itemId){
+                R.id.homeButton -> Toast.makeText(applicationContext,arrayForX.contentToString(), Toast.LENGTH_SHORT).show()
 
-
-    fun resetFunction(viewCurrent : View){
-        for (i in 0 until 9) {
-            buttons[i].text = ""
+            }
+            true
         }
-        gameOver = false
-        winner.text = "No winner yet"
-        (viewCurrent as Button) .visibility = View.INVISIBLE
-        whoseTurn = 0
-        count = 0
+
     }
 
-    @SuppressLint("SetTextI18n")
-    fun whenClicked(viewCurrent : View) {
+    fun whenClicked(viewCurrent: View) {
+        var index = buttons.indexOf(viewCurrent)
         //the reference of button we click is saved in current button
         val currentButton = viewCurrent
         //exit if game over
@@ -63,6 +67,9 @@ class MainActivity : AppCompatActivity() {
                 //count is same as number of boxes filled
                 whoseTurn++
                 count++
+                //this is used for saved preferences
+                //all the index that have x are saved
+                savedStringForX = "$savedStringForX$index-"
             }
         } else if (whoseTurn == 1) {
             if ((currentButton as Button).text == "") {
@@ -70,6 +77,7 @@ class MainActivity : AppCompatActivity() {
                 currentButton.text = player
                 count++
                 whoseTurn--
+                savedStringForY= "$savedStringForY$index-"
             }
         }
         //we can have winner at at least 5th term
@@ -115,10 +123,36 @@ class MainActivity : AppCompatActivity() {
 
         }
     }
-        
-            }
+
+    fun resetFunction(view: View) {
+        for (i in 0 until 9) {
+            buttons[i].text = ""
         }
+        gameOver = false
+        winner.text = "No winner yet"
+        (view as Button) .visibility = View.INVISIBLE
+        whoseTurn = 0
+        count = 0
         }
+
+    fun loadGame(view: View) {
+      /*  val stringX: String? = sharedPreferences.getString("valueOfX"," 0-")
+        val stringY: String? = sharedPreferences.getString("valueOfY"," 0-")
+
+        val stringArrayForX = stringX!!.removeSuffix("-").trimStart().split("-")
+        arrayForX = stringArrayForX.map { it.toInt() }.toIntArray()
+        val stringArrayForY = stringY!!.removeSuffix("-").trimStart().split("-")
+        arrayForX = stringArrayForY.map { it.toInt() }.toIntArray()*/
+
     }
+
+    fun saveGame(view: View) {
+        /*val editor: SharedPreferences.Editor = sharedPreferences.edit()
+        editor.putString("valueOfX", savedStringForX)
+        editor.putString("valueOfY", savedStringForY)*/
+    }
+
 }
+
+
 
