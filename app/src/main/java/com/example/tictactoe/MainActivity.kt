@@ -10,6 +10,7 @@ import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
+import java.util.logging.Logger.global
 
 
 
@@ -20,12 +21,15 @@ class MainActivity : AppCompatActivity() {
     var buttons = arrayOf<Button>()
     private lateinit var winner: TextView
     private lateinit var resetButton: Button
+    private lateinit var turnBanner: TextView
     private var player:String ="X"
     private var savedStringForX:String = ""
     private var savedStringForY:String = ""
     private lateinit var arrayForX:IntArray
-   /* private val sharedPreferences = getSharedPreferences("mySharedPreferences" , Context.MODE_PRIVATE )
-*/
+    private lateinit var arrayForY:IntArray
+    private lateinit var  sharedPreferences:SharedPreferences
+    private var testString:String = ""
+    private var gameStarted=false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -42,17 +46,33 @@ class MainActivity : AppCompatActivity() {
         )
         winner = findViewById<TextView>(R.id.winner)
         resetButton = findViewById<Button>(R.id.reset)
+        turnBanner = findViewById<Button>(R.id.turnBanner)
+        resetButton.setOnClickListener {
+            whenClickedReset()
+        }
         navBar.setNavigationItemSelectedListener{
             when(it.itemId){
-                R.id.homeButton -> Toast.makeText(applicationContext,arrayForX.contentToString(), Toast.LENGTH_SHORT).show()
-
+                R.id.homeButton -> Toast.makeText(applicationContext,testString, Toast.LENGTH_SHORT).show()
+                R.id.rest -> whenClickedReset()
             }
             true
         }
-
+        sharedPreferences = getSharedPreferences("mySharedPreferences" , Context.MODE_PRIVATE )
     }
 
+    private fun whenClickedReset(){
+        resetButton.visibility = View.INVISIBLE
+        for (i in 0 until 9) {
+            buttons[i].text = ""
+        }
+        whoseTurn = 0
+        gameStarted = false
+        gameOver = false
+        winner.text = "No winner yet"
+        count = 0
+    }
     fun whenClicked(viewCurrent: View) {
+        gameStarted = true
         var index = buttons.indexOf(viewCurrent)
         //the reference of button we click is saved in current button
         val currentButton = viewCurrent
@@ -61,6 +81,7 @@ class MainActivity : AppCompatActivity() {
             return
         }
         if (whoseTurn == 0) {
+            turnBanner.text ="O's Turn"
             if ((currentButton as Button).text == "") {
                 player = "X"
                 currentButton.text = player
@@ -72,6 +93,7 @@ class MainActivity : AppCompatActivity() {
                 savedStringForX = "$savedStringForX$index-"
             }
         } else if (whoseTurn == 1) {
+            turnBanner.text ="X's Turn"
             if ((currentButton as Button).text == "") {
                 player = "O"
                 currentButton.text = player
@@ -124,32 +146,62 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun resetFunction(view: View) {
-        for (i in 0 until 9) {
-            buttons[i].text = ""
-        }
-        gameOver = false
-        winner.text = "No winner yet"
-        (view as Button) .visibility = View.INVISIBLE
-        whoseTurn = 0
-        count = 0
-        }
+
 
     fun loadGame(view: View) {
-      /*  val stringX: String? = sharedPreferences.getString("valueOfX"," 0-")
-        val stringY: String? = sharedPreferences.getString("valueOfY"," 0-")
+        whenClickedReset()
+        val gameSaved = sharedPreferences.getBoolean("gameSaved",false)
+        this.whoseTurn = sharedPreferences.getInt("whoseTurn",0)
+        this.count = sharedPreferences.getInt("count",0)
+            if (gameSaved){
+                if (whoseTurn==1){
+                    turnBanner.text ="O's Turn"
+                }
+                else{
+                    turnBanner.text ="X's Turn"
+                }
+                val stringX = sharedPreferences.getString("valueOfX"," 0-")?.trimStart()?.removeSuffix("-")?.split("-")
+                val stringY = sharedPreferences.getString("valueOfY"," 0-")?.trimStart()?.removeSuffix("-")?.split("-")
+                val arrayX = stringX?.map { it.toInt() }?.toIntArray()
+                val arrayY = stringY?.map { it.toInt() }?.toIntArray()
 
-        val stringArrayForX = stringX!!.removeSuffix("-").trimStart().split("-")
-        arrayForX = stringArrayForX.map { it.toInt() }.toIntArray()
-        val stringArrayForY = stringY!!.removeSuffix("-").trimStart().split("-")
-        arrayForX = stringArrayForY.map { it.toInt() }.toIntArray()*/
+            arrayX?.sort()
+            if (arrayX !=null && arrayY !=null){
+                for (i in arrayX)
+                {
+                    buttons[i].text = "x"
+
+                }
+                for (i in arrayY)
+                {
+                    buttons[i].text = "O"
+
+                }
+            }
+        }
+        else{
+            Toast.makeText(this,"No Data Found!",Toast.LENGTH_SHORT).show()
+        }
 
     }
 
+
     fun saveGame(view: View) {
-        /*val editor: SharedPreferences.Editor = sharedPreferences.edit()
-        editor.putString("valueOfX", savedStringForX)
-        editor.putString("valueOfY", savedStringForY)*/
+        if (!gameStarted){
+            Toast.makeText(this,"Nothing To Store",Toast.LENGTH_SHORT).show()
+        }
+        else{
+            val editor: SharedPreferences.Editor = sharedPreferences.edit()
+            editor.putString("valueOfX", savedStringForX)
+            editor.putString("valueOfY", savedStringForY)
+            editor.putBoolean("gameSaved",gameStarted)
+            editor.putInt("whoseTurn",whoseTurn)
+            editor.putInt("count",count)
+            editor.apply()
+            turnBanner.text = "X's Turn"
+            whenClickedReset()
+            Toast.makeText(this,"Saved",Toast.LENGTH_SHORT).show()
+        }
     }
 
 }
